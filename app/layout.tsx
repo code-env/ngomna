@@ -3,6 +3,7 @@ import './globals.css';
 
 import localFont from 'next/font/local';
 import { ClerkProvider } from '@clerk/nextjs';
+import { siteConfig } from '@/config/site';
 
 const satoshi = localFont({
   src: [
@@ -32,11 +33,11 @@ const satoshi = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Jobo',
-    template: ' %s | Jobo',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
 
-  description: '',
+  description: siteConfig.description,
   icons: {
     icon: [
       { url: '/logo-white.png', media: '(prefers-color-scheme: dark)' },
