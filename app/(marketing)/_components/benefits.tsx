@@ -52,7 +52,7 @@ const Benefits = () => {
             <Container
               key={benefit.title}
               className="last:col-span-2"
-              delay={index * 0.2}
+              delay={index * 0.1}
             >
               <Card className="h-full">
                 <CardHeader>
