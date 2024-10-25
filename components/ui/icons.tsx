@@ -5,62 +5,21 @@ type IconProps = React.HTMLAttributes<SVGElement>;
 export const Icons = {
   logo: (props: IconProps) => (
     <svg
-      viewBox="0 0 132.292 132.292"
       xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       {...props}
     >
-      <g fill="#d4aa00" transform="translate(.617 -5.527)">
-        <rect
-          fill="#d4aa00"
-          width="15.875"
-          height="89.958"
-          x="-76.052"
-          y="51.638"
-          ry="10.238"
-          transform="scale(-1 1) rotate(17.213)"
-          rx="7.938"
-        />
-        <rect
-          fill="#d4aa00"
-          width="15.875"
-          height="89.958"
-          x="71.653"
-          y="-48.84"
-          ry="7.938"
-          transform="rotate(51.226)"
-          rx="7.938"
-        />
-        <path
-          fill="#d4aa00"
-          d="M100.778 69.553a49.995 49.995 0 0 1-23.928 4.418c-25.89-1.6-35.298-20.516-41.123-20.876a7.937 7.937 0 0 0-8.412 7.432c-.077 1.888.457 3.884 1.635 5.389 11.252 13.618 27.898 22.724 46.92 23.9 11.199.692 20.37-.765 29.912-5.114l7.41-12.201z"
-        />
-      </g>
-      <g fill="#fc0" transform="translate(.617 -5.527)">
-        <rect
-          fill="#fc0"
-          width="15.875"
-          height="89.958"
-          x="-77.96"
-          y="51.678"
-          ry="10.238"
-          transform="scale(-1 1) rotate(17.213)"
-          rx="7.938"
-        />
-        <rect
-          fill="#fc0"
-          width="15.875"
-          height="89.958"
-          x="72.392"
-          y="-50.599"
-          ry="7.938"
-          transform="rotate(51.226)"
-          rx="7.938"
-        />
-        <path
-          fill="#fc0"
-          d="M102.613 69.028a49.995 49.995 0 0 1-23.928 4.418c-25.89-1.601-35.3-20.516-41.124-20.877a7.937 7.937 0 0 0-8.412 7.433c-.077 1.888.457 3.884 1.635 5.388 11.252 13.619 27.898 22.724 46.921 23.9 11.198.693 20.369-.764 29.911-5.114l7.41-12.2z"
-        />
-      </g>
+      <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+      <circle cx="7" cy="17" r="2" />
+      <path d="M9 17h6" />
+      <circle cx="17" cy="17" r="2" />
     </svg>
   ),
   bento: (props: IconProps) => <TableCellsSplit {...props} />,

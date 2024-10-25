@@ -12,13 +12,13 @@ const Hero = () => {
           <div className="space-y-2">
             <Container>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Seamless Government Data Exchange
+                The Future of Driver's Licensing
               </h1>
             </Container>
             <Container delay={0.3}>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                Improving data accuracy and decision-making through AI-powered
-                insights for efficient government operations.
+                Secure, efficient, and convenient license management for
+                Cameroon's drivers.
               </p>
             </Container>
           </div>

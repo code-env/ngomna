@@ -1,8 +1,9 @@
 'use client';
 
+import { Icons } from '@/components/ui/icons';
+import { buttonVariants } from '@/components/ui/button';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import { Database } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -48,10 +49,10 @@ const MarketingHeader = () => {
     >
       <div className="container flex items-center justify-between h-16">
         <Link className="flex items-center justify-center" href="#">
-          <Database className="h-6 w-6 mr-2" />
+          <Icons.logo className="h-6 w-6 mr-2" />
           <span className="font-bold">{siteConfig.name}</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
+        <nav className="flex gap-4 sm:gap-6 items-center">
           {routes.map(route => (
             <Link
               key={route.title}
@@ -62,6 +63,20 @@ const MarketingHeader = () => {
             </Link>
           ))}
         </nav>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/sign-up"
+            className={buttonVariants({ variant: 'ghost' })}
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/sign-in"
+            className={buttonVariants({ variant: 'secondary' })}
+          >
+            Sign in
+          </Link>
+        </div>
       </div>
     </header>
   );
