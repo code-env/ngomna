@@ -4,6 +4,7 @@ import './globals.css';
 import localFont from 'next/font/local';
 import { ClerkProvider } from '@clerk/nextjs';
 import { siteConfig } from '@/config/site';
+import { ThemeProvider } from '@/providers/theme';
 
 const satoshi = localFont({
   src: [
@@ -55,7 +56,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={satoshi.className}>
-          <main className="min-h-screen ">{children}</main>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="min-h-screen">{children}</main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
