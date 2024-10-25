@@ -2,40 +2,26 @@
 
 import Container from '@/components/shared/container';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { motion } from 'framer-motion';
-import { Brain, Database, FileText, Scale, Shield } from 'lucide-react';
+import { Clock, Shield, Smartphone } from 'lucide-react';
 
 const Benefits = () => {
   const benefits = [
     {
-      title: 'Unified Data Model',
-      description:
-        'Standardized data structures for seamless integration across agencies',
-      icon: Database,
+      title: 'Online Application & Renewal',
+      description: 'Apply for or renew your license from anywhere, anytime.',
+      icon: Smartphone,
     },
     {
-      title: 'Secure APIs',
+      title: 'Biometric Security',
       description:
-        'Protected data exchange with robust authentication and encryption',
+        'Advanced biometric features ensure your license is secure and unique to you.',
       icon: Shield,
     },
     {
-      title: 'AI Data Insights',
+      title: 'Real-time Verification',
       description:
-        'Advanced analytics for data-driven decision making and policy formulation',
-      icon: Brain,
-    },
-    {
-      title: 'Metadata Management',
-      description:
-        'Comprehensive data cataloging for improved discoverability and understanding',
-      icon: FileText,
-    },
-    {
-      title: 'Compliance & Governance',
-      description:
-        'Ensure adherence to data protection regulations and government standards',
-      icon: Scale,
+        'Instant verification for law enforcement and other authorized entities.',
+      icon: Clock,
     },
   ];
   return (
@@ -47,19 +33,19 @@ const Benefits = () => {
           </h2>
         </Container>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {benefits.map((benefit, index) => (
             <Container
               key={benefit.title}
-              className="last:col-span-2"
+              className="first:row-span-2"
               delay={index * 0.1}
             >
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="bg-secondary h-32 rounded-lg" />
+              <Card className="h-full flex flex-col">
+                <CardHeader className="flex-1">
+                  <div className="bg-secondary size-full min-h-20 rounded-lg" />
                 </CardHeader>
                 <CardContent className="flex flex-col space-y-2 p-6">
-                  <h3 className="flex items-center gap-5">
+                  <h3 className="flex items-center gap-5 text-xl font-semibold">
                     <benefit.icon className="size-6 text-primary" />
                     <span>{benefit.title}</span>
                   </h3>
