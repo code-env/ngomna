@@ -12,7 +12,11 @@ const Hero = () => {
           <div className="space-y-2">
             <Container>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                The Future of Driver's Licensing
+                Verify with confidence. Drive with{' '}
+                <span className="bg-primary text-primary-foreground rounded-xl">
+                  Safety
+                </span>
+                .
               </h1>
             </Container>
             <Container delay={0.3}>

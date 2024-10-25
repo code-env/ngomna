@@ -13,31 +13,33 @@ enum ROlES {
 }
 
 model User {
-  id       String  @id @default(cuid()) @map("_id") @db.ObjectId
-  clerkId  String  @unique
-  email    String  @unique
-  username String?
-  role     ROlES   @default(USER)
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId     String       @unique
+  email       String       @unique
+  username    String?
+  role        ROlES        @default(USER)
   cardlicence CarLicence[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CarLicence {
-  id       String  @id @default(cuid()) @map("_id") @db.ObjectId
-  carId    String
-  userId String @db.ObjectId
-  status   String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  carId     String
+  userId    String   @db.ObjectId
+  status    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user     User    @relation(fields: [userId], references: [id])
-
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Licence_documents {
-  id       String  @id @default(cuid()) @map("_id") @db.ObjectId
- name     String
- url     String
- expriryDate String @default("NULL")
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  url         String
+  expriryDate String @default("NULL")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
