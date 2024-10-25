@@ -45,3 +45,46 @@ export async function POST(req:Request){
         return new NextResponse("An internal server error occured", {status:500})
     }
 }
+
+export async function GET(req:Request){
+    try {
+
+        const user = await auth()
+
+        if (!user){
+            return new NextResponse("Unathorized", {status:401})
+
+        }
+
+        const userInDb = await db.user.findUnique({
+            where:{
+                clerkId:user.userId as string
+            }
+        })
+
+        if(!userInDb){
+            return new NextResponse("Unauthorized", {status:401})
+        }
+
+        const licence = await db.carLicence.findMany({
+            where:{
+                userId:userInDb.id
+            }
+        })
+
+        if(!licence){
+            return new NextResponse("No licence found", {status:404})
+        }
+
+        return new NextResponse(JSON.stringify(licence), {status:200})
+
+        
+    } catch (error:any) 
+    {
+        console.log(error.message)
+        return new NextResponse("An internal server error occured", {status:500})
+        
+    }
+}
+
+//mongodb+srv://orgcodeen:JdvddvmQdAlIjaSs@ground.81mgp.mongodb.net/ngovna
