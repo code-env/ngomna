@@ -87,4 +87,3 @@ export async function GET(req:Request){
     }
 }
 
-//mongodb+srv://orgcodeen:JdvddvmQdAlIjaSs@ground.81mgp.mongodb.net/ngovna
