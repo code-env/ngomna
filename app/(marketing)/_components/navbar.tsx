@@ -68,7 +68,7 @@ const MarketingHeader = () => {
             href="/sign-up"
             className={buttonVariants({ variant: 'ghost' })}
           >
-            Sign in
+            Sign up
           </Link>
           <Link
             href="/sign-in"
