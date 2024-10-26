@@ -1,3 +1,5 @@
+'use client';
+
 import { create } from 'zustand';
 
 export type Tabs =
@@ -13,6 +15,7 @@ interface TabsState {
 }
 
 const getInitialTab = (): Tabs => {
+  if (typeof window === 'undefined') return 'my-license';
   const savedTab = localStorage.getItem('activeTab') as Tabs;
   return savedTab || 'my-license';
 };

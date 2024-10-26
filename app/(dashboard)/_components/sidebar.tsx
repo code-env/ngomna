@@ -1,6 +1,7 @@
 'use client';
 
 import Logo from '@/components/shared/logo';
+import { ModeToggle } from '@/components/shared/mode-toogle';
 import { Button } from '@/components/ui/button';
 import { Tabs, useTabsStore } from '@/providers/tabs';
 import { icons } from 'lucide-react';
@@ -44,8 +45,9 @@ const Sidebar = () => {
 
   return (
     <aside className="w-64 bg-background shadow-md h-screen sticky top-0">
-      <div className="border-b h-16 flex px-4">
+      <div className="border-b h-16 flex px-4 items-center justify-between">
         <Logo path="/d" />
+        <ModeToggle />
       </div>
       <nav className="mt-6 px-4">
         {tabs.map(tab => {
