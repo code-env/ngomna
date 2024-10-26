@@ -1,12 +1,16 @@
+
+
 'use client';
 
 import Testimonials from '@/components/shared/testimonials';
+import axios from 'axios';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -17,7 +21,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Check } from 'lucide-react';
+import { Axis3DIcon, Check } from 'lucide-react';
 import { useState } from 'react';
 
 export default function VroumPricing() {
@@ -92,6 +96,25 @@ export default function VroumPricing() {
     },
   ];
 
+  const Subscribe = async (plan: string, userId: string) => {
+    if (plan === 'Pro') {
+      try {
+        const initiatepay = await axios.get(`/api/payments/initiate-payment/${userId}`);
+  
+        if (initiatepay.status === 200) {
+          const proceedtopay = await axios.post(`/api/subscription`, {   
+userId:userId
+          });
+        
+        }
+      } catch (error) {
+        console.error('Error during payment process:', error);
+      }
+    }
+  }
+
+
+
   return (
     <div className="container mx-auto px-4 py-8">
       <header className="text-center mb-12">
@@ -132,7 +155,7 @@ export default function VroumPricing() {
               <CardDescription>{plan.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold mb-4">
+              <div className="text-3xl font-bold mb-4" onClick={()=> Subscribe("Pro","671c48dc3ac49606787ce30f")}>
                 {plan.price[billingCycle] === 'Free' ? (
                   'Free'
                 ) : (
