@@ -16,7 +16,7 @@ model User {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
   clerkId     String       @unique
   email       String       @unique
-  username    String?
+  username    String
   role        ROlES        @default(USER)
   cardlicence CarLicence[]
 
@@ -35,11 +35,10 @@ model CarLicence {
 }
 
 model Licence_documents {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   url         String
-  expriryDate String @default("NULL")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  expriryDate String   @default("NULL")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
