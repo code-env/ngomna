@@ -1,3 +1,4 @@
+import Testimonials from '@/components/shared/testimonials';
 import Benefits from './_components/benefits';
 import Footer from './_components/footer';
 import Hero from './_components/hero';
@@ -12,6 +13,7 @@ const LandingPage = () => {
         <Hero />
         <Problem />
         <Benefits />
+        <Testimonials />
       </main>
       <Footer />
     </div>

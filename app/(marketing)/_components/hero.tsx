@@ -12,8 +12,8 @@ const Hero = () => {
           <div className="space-y-2">
             <Container>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Verify with confidence. Drive with{' '}
-                <span className="bg-primary text-primary-foreground rounded-xl">
+                Verify with Confidence . Drive with{' '}
+                <span className="bg-primary text-primary-foreground rounded-xl px-4">
                   Safety
                 </span>
                 .

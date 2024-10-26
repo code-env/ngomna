@@ -1,8 +1,7 @@
 'use client';
 
-import { Icons } from '@/components/ui/icons';
+import Logo from '@/components/shared/logo';
 import { buttonVariants } from '@/components/ui/button';
-import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -48,10 +47,7 @@ const MarketingHeader = () => {
       )}
     >
       <div className="container flex items-center justify-between h-16">
-        <Link className="flex items-center justify-center" href="#">
-          <Icons.logo className="h-6 w-6 mr-2" />
-          <span className="font-bold">{siteConfig.name}</span>
-        </Link>
+        <Logo path="/" />
         <nav className="flex gap-4 sm:gap-6 items-center">
           {routes.map(route => (
             <Link
