@@ -10,17 +10,17 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
       },
     },
     extend: {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        bluePrimary: 'hsl(var(--b-primary))',
+        greenPrimary: 'hsl(var(--g-primary))',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
@@ -59,16 +59,6 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -92,10 +82,64 @@ const config: Config = {
             height: '0',
           },
         },
+        'automation-zoom-in': {
+          '0%': {
+            transform: 'translateY(-30px) scale(0.2)',
+          },
+          '100%': {
+            transform: 'transform: translateY(0px) scale(1)',
+          },
+        },
+        flip: {
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
+        rotate: {
+          to: {
+            transform: 'rotate(90deg)',
+          },
+        },
+        'rotate-new': {
+          '0%': {
+            transform: 'rotate(0deg) scale(10)',
+          },
+          '100%': {
+            transform: 'rotate(-360deg) scale(10)',
+          },
+        },
+        shimmer: {
+          from: {
+            backgroundPosition: '0 0',
+          },
+          to: {
+            backgroundPosition: '-200% 0',
+          },
+        },
+        'border-beam': {
+          '100%': {
+            'offset-distance': '100%',
+          },
+        },
+        marquee: {
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(calc(-100% - var(--gap)))',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'automation-zoom-in': 'automation-zoom-in 0.5s',
+        flip: 'flip 6s infinite steps(2, end)',
+        rotate: 'rotate 3s linear infinite both',
+        'rotate-new': 'rotate-new 20s linear infinite',
+        shimmer: 'shimmer 2s linear infinite',
+        'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+        marquee: 'marquee var(--duration) linear infinite',
       },
     },
   },
