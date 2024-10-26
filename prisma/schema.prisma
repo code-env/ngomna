@@ -12,6 +12,12 @@ enum ROlES {
   ADMIN
 }
 
+enum STATUS {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model User {
   id          String       @id @default(auto()) @map("_id") @db.ObjectId
   clerkId     String       @unique
@@ -28,7 +34,7 @@ model CarLicence {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   carId     String
   userId    String   @db.ObjectId
-  status    String
+  status    STATUS   @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -37,12 +43,13 @@ model CarLicence {
 }
 
 model Licence_documents {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   url         String
-  expriryDate String     @default("NULL")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  licenceId   String     @db.ObjectId
-  carLicence  CarLicence @relation(fields: [licenceId], references: [id])
+  expriryDate String   @default("NULL")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  licenceId   String   @db.ObjectId
+
+  carLicence CarLicence @relation(fields: [licenceId], references: [id])
 }

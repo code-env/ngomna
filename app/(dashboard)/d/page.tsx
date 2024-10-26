@@ -2,8 +2,13 @@ import { Button } from '@/components/ui/button';
 import Sidebar from '../_components/sidebar';
 import TabsComponents from '../_components/tabs';
 import Welcome from '../_components/welcome';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const VroumDashboard = async () => {
+  const user = await useCurrentUser();
+
+  if (!user) return;
+
   return (
     <>
       <Welcome />
@@ -18,7 +23,7 @@ const VroumDashboard = async () => {
           Contact Support
         </Button>
       </div>
-      <TabsComponents />
+      <TabsComponents user={user} />
     </>
   );
 };

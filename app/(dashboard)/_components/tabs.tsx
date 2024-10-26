@@ -5,29 +5,30 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTabsStore } from '@/providers/tabs';
 import { Tab } from './sidebar';
-import { HelpCircle, QrCode } from 'lucide-react';
-import { ROlES } from '@prisma/client';
+import { HelpCircle } from 'lucide-react';
+import { ROlES, User } from '@prisma/client';
+import { useOrigin } from '@/hooks/use-origin';
+import QrCode from 'qrcode';
+import { useEffect, useState, useCallback } from 'react';
 
-const TabsComponents = () => {
+const TabsComponents = ({ user }: { user: User }) => {
+  const origin = useOrigin();
+  const [src, setSrc] = useState<string | null>(null);
+
   const { activeTab, setActiveTab } = useTabsStore() as {
     activeTab: string;
     setActiveTab: (value: string) => void;
   };
 
-  const user = {
-    id: '1',
-    clerkId: 'clerk123',
-    email: 'jean.kouam@example.com',
-    username: 'jeankouam',
-    role: ROlES.USER, // Assuming ROLES is an enum and 'USER' is a valid value
-    createdAt: new Date('2023-01-01'),
-    updatedAt: new Date('2023-01-01'),
-    name: 'Jean Kouam',
-    licenseStatus: 'Active',
-    licenseNumber: 'CM12345678',
-    expiryDate: '2025-12-31',
-    biometricStatus: 'Verified',
-  };
+  useEffect(() => {
+    QrCode.toDataURL(`${origin}/d/profile/${user.id}`, (err, url) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      setSrc(url);
+    });
+  }, [origin]);
 
   const tabs: Tab[] = [
     {
@@ -82,6 +83,69 @@ const TabsComponents = () => {
       description: 'Document Verification',
     },
   ];
+
+  const generateBadge = useCallback(() => {
+    if (!src) {
+      console.error('QR code URL is not available');
+      return;
+    }
+
+    const svgContent = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+        <rect width="100%" height="100%" fill="#f0f0f0"/>
+        <rect width="100%" height="80" fill="#4a90e2"/>
+        <text x="200" y="50" font-size="24" fill="white" text-anchor="middle">User Badge</text>
+        <g transform="translate(50, 120)">
+          <text x="0" y="0" font-size="18" fill="#333">
+            <tspan x="0" dy="1.2em">Username: ${user.username}</tspan>
+          </text>
+          <text x="0" y="50" font-size="18" fill="#333">
+            <tspan x="0" dy="1.2em">Gender: ${user.gender || 'Not specified'}</tspan>
+          </text>
+          <text x="0" y="100" font-size="18" fill="#333">
+            <tspan x="0" dy="1.2em">Matriculation: ${user.matriculation || 'Not specified'}</tspan>
+          </text>
+          <text x="0" y="150" font-size="18" fill="#333">
+            <tspan x="0" dy="1.2em">Profile: ${user.profile || 'Not specified'}</tspan>
+          </text>
+        </g>
+        <image x="125" y="350" width="150" height="150" href="${src}"/>
+      </svg>
+    `;
+
+    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 600;
+      const ctx = canvas.getContext('2d');
+
+      if (ctx) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        const pngUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `badge-${user.username}.png`;
+        link.href = pngUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+      } else {
+        console.error('Failed to get 2D context');
+      }
+    };
+    img.src = url;
+  }, [src, user.username, user.gender, user.matriculation, user.profile]);
+
+
+
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
       <TabsList>
@@ -100,25 +164,30 @@ const TabsComponents = () => {
             <div className="grid gap-2">
               <div className="flex justify-between">
                 <span className="font-semibold">License Number:</span>
-                <span>{user.licenseNumber}</span>
+                <span>Nothing</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Expiry Date:</span>
-                <span>{user.expiryDate}</span>
+                <span>Nothing2</span>
               </div>
               <div className="flex justify-between">
                 <span className="font-semibold">Biometric Verification:</span>
-                <span className="text-green-600">{user.biometricStatus}</span>
+                <span className="text-green-600">GAY</span>
               </div>
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>QR Code for Instant Validation</CardTitle>
+            <CardTitle className="flex items-center justify-between">
+              <p>QR Code for Instant Validation</p>
+               <Button disabled={!src} onClick={generateBadge}>Generate badge</Button>
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex justify-center">
-            <QrCode size={200} />
+            <div className="size-40 bg-muted">
+              {src && <img src={src} alt="QR Code" />}
+            </div>
           </CardContent>
         </Card>
       </TabsContent>
