@@ -98,7 +98,7 @@ export default function VroumPricing() {
         <h1 className="text-4xl font-bold mb-4">
           Choose the Perfect Plan for Your Needs
         </h1>
-        <p className="text-xl text-gray-600">
+        <p className="text-xl text-muted-foreground">
           Partner with Vroum to revolutionize driver's licensing and grow your
           business
         </p>
