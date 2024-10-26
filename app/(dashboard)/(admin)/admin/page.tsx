@@ -1,12 +1,19 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BarChart, Bell, FileText, Home, Settings, Users } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer } from '@/components/ui/chart';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -14,23 +21,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Textarea } from "@/components/ui/textarea"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { ResponsiveBar } from '@nivo/bar'
+} from '@/components/ui/table';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { ResponsiveBar } from '@nivo/bar';
+import { Bell, FileText, Home, Settings, Users } from 'lucide-react';
+import { useState } from 'react';
 
 export default function VroumAdminPanel() {
-  const [activeTab, setActiveTab] = useState('dashboard')
+  const [activeTab, setActiveTab] = useState('dashboard');
 
   // Mock data for demonstration purposes
   const dashboardMetrics = {
@@ -38,14 +36,14 @@ export default function VroumAdminPanel() {
     pendingApprovals: 87,
     rejectedApplications: 23,
     activeLicenses: 1140,
-  }
+  };
 
   const pendingApplications = [
-    { id: 1, name: "Jean Kouam", date: "2024-03-15", status: "Pending" },
-    { id: 2, name: "Marie Nguemo", date: "2024-03-14", status: "Pending" },
-    { id: 3, name: "Paul Biya", date: "2024-03-13", status: "Under Review" },
+    { id: 1, name: 'Jean Kouam', date: '2024-03-15', status: 'Pending' },
+    { id: 2, name: 'Marie Nguemo', date: '2024-03-14', status: 'Pending' },
+    { id: 3, name: 'Paul Biya', date: '2024-03-13', status: 'Under Review' },
     // Add more mock data as needed
-  ]
+  ];
 
   const chartData = [
     { day: 'Mon', submitted: 45, approved: 38, rejected: 7 },
@@ -55,7 +53,7 @@ export default function VroumAdminPanel() {
     { day: 'Fri', submitted: 58, approved: 50, rejected: 8 },
     { day: 'Sat', submitted: 37, approved: 32, rejected: 5 },
     { day: 'Sun', submitted: 30, approved: 28, rejected: 2 },
-  ]
+  ];
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -127,7 +125,11 @@ export default function VroumAdminPanel() {
         </header>
 
         {/* Dashboard Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-4"
+        >
           <TabsContent value="dashboard">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
@@ -138,7 +140,9 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{dashboardMetrics.totalSubmitted}</div>
+                  <div className="text-2xl font-bold">
+                    {dashboardMetrics.totalSubmitted}
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -149,7 +153,9 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{dashboardMetrics.pendingApprovals}</div>
+                  <div className="text-2xl font-bold">
+                    {dashboardMetrics.pendingApprovals}
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -160,7 +166,9 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{dashboardMetrics.rejectedApplications}</div>
+                  <div className="text-2xl font-bold">
+                    {dashboardMetrics.rejectedApplications}
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -171,7 +179,9 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{dashboardMetrics.activeLicenses}</div>
+                  <div className="text-2xl font-bold">
+                    {dashboardMetrics.activeLicenses}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -183,16 +193,16 @@ export default function VroumAdminPanel() {
                 <ChartContainer
                   config={{
                     submitted: {
-                      label: "Submitted",
-                      color: "hsl(var(--chart-1))",
+                      label: 'Submitted',
+                      color: 'hsl(var(--chart-1))',
                     },
                     approved: {
-                      label: "Approved",
-                      color: "hsl(var(--chart-2))",
+                      label: 'Approved',
+                      color: 'hsl(var(--chart-2))',
                     },
                     rejected: {
-                      label: "Rejected",
-                      color: "hsl(var(--chart-3))",
+                      label: 'Rejected',
+                      color: 'hsl(var(--chart-3))',
                     },
                   }}
                   className="h-[300px]"
@@ -206,7 +216,10 @@ export default function VroumAdminPanel() {
                     valueScale={{ type: 'linear' }}
                     indexScale={{ type: 'band', round: true }}
                     colors={{ scheme: 'nivo' }}
-                    borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                    borderColor={{
+                      from: 'color',
+                      modifiers: [['darker', 1.6]],
+                    }}
                     axisTop={null}
                     axisRight={null}
                     axisBottom={{
@@ -215,7 +228,7 @@ export default function VroumAdminPanel() {
                       tickRotation: 0,
                       legend: 'Day',
                       legendPosition: 'middle',
-                      legendOffset: 32
+                      legendOffset: 32,
                     }}
                     axisLeft={{
                       tickSize: 5,
@@ -223,11 +236,14 @@ export default function VroumAdminPanel() {
                       tickRotation: 0,
                       legend: 'Count',
                       legendPosition: 'middle',
-                      legendOffset: -40
+                      legendOffset: -40,
                     }}
                     labelSkipWidth={12}
                     labelSkipHeight={12}
-                    labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+                    labelTextColor={{
+                      from: 'color',
+                      modifiers: [['darker', 1.6]],
+                    }}
                     legends={[
                       {
                         dataFrom: 'keys',
@@ -246,15 +262,21 @@ export default function VroumAdminPanel() {
                           {
                             on: 'hover',
                             style: {
-                              itemOpacity: 1
-                            }
-                          }
-                        ]
-                      }
+                              itemOpacity: 1,
+                            },
+                          },
+                        ],
+                      },
                     ]}
                     role="application"
                     ariaLabel="Nivo bar chart demo"
-                    barAriaLabel={e=>e.id+": "+e.formattedValue+" in day: "+e.indexValue}
+                    barAriaLabel={e =>
+                      e.id +
+                      ': ' +
+                      e.formattedValue +
+                      ' in day: ' +
+                      e.indexValue
+                    }
                   />
                 </ChartContainer>
               </CardContent>
@@ -267,7 +289,10 @@ export default function VroumAdminPanel() {
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mb-4">
-                  <Input className="max-w-sm" placeholder="Search applications..." />
+                  <Input
+                    className="max-w-sm"
+                    placeholder="Search applications..."
+                  />
                   <Select>
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Filter by status" />
@@ -289,17 +314,25 @@ export default function VroumAdminPanel() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {pendingApplications.map((application) => (
+                    {pendingApplications.map(application => (
                       <TableRow key={application.id}>
                         <TableCell>{application.name}</TableCell>
                         <TableCell>{application.date}</TableCell>
                         <TableCell>
-                          <Badge variant={application.status === 'Pending' ? 'secondary' : 'default'}>
+                          <Badge
+                            variant={
+                              application.status === 'Pending'
+                                ? 'secondary'
+                                : 'default'
+                            }
+                          >
                             {application.status}
                           </Badge>
                         </TableCell>
                         <TableCell>
-                          <Button variant="outline" size="sm" className="mr-2">View</Button>
+                          <Button variant="outline" size="sm" className="mr-2">
+                            View
+                          </Button>
                           <Button size="sm">Review</Button>
                         </TableCell>
                       </TableRow>
@@ -363,8 +396,12 @@ export default function VroumAdminPanel() {
                       <TableCell>2 hours ago</TableCell>
 
                       <TableCell>
-                        <Button variant="outline" size="sm" className="mr-2">Edit</Button>
-                        <Button variant="destructive" size="sm">Deactivate</Button>
+                        <Button variant="outline" size="sm" className="mr-2">
+                          Edit
+                        </Button>
+                        <Button variant="destructive" size="sm">
+                          Deactivate
+                        </Button>
                       </TableCell>
                     </TableRow>
                     {/* Add more user rows as needed */}
@@ -381,11 +418,19 @@ export default function VroumAdminPanel() {
               <CardContent>
                 <form className="space-y-4">
                   <div>
-                    <Label htmlFor="notificationEmail">Notification Email</Label>
-                    <Input id="notificationEmail" type="email" placeholder="admin@vroum.cm" />
+                    <Label htmlFor="notificationEmail">
+                      Notification Email
+                    </Label>
+                    <Input
+                      id="notificationEmail"
+                      type="email"
+                      placeholder="admin@vroum.cm"
+                    />
                   </div>
                   <div>
-                    <Label htmlFor="dataRetention">Data Retention Period (days)</Label>
+                    <Label htmlFor="dataRetention">
+                      Data Retention Period (days)
+                    </Label>
                     <Input id="dataRetention" type="number" placeholder="365" />
                   </div>
                   <div>
@@ -409,5 +454,5 @@ export default function VroumAdminPanel() {
         </Tabs>
       </main>
     </div>
-  )
+  );
 }

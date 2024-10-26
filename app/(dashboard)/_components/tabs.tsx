@@ -91,36 +91,34 @@ const TabsComponents = ({ user }: { user: User }) => {
     }
 
     const svgContent = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
-        <rect width="100%" height="100%" fill="#f0f0f0"/>
-        <rect width="100%" height="80" fill="#4a90e2"/>
-        <text x="200" y="50" font-size="24" fill="white" text-anchor="middle">User Badge</text>
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+        <rect width="100%" height="100%" fill="#fff"/>
+        <rect width="100%" height="200" fill="#FACC15"/>
         <g transform="translate(50, 120)">
-          <text x="0" y="0" font-size="18" fill="#333">
+          <text x="0" y="0" font-size="16" fill="#333">
             <tspan x="0" dy="1.2em">Username: ${user.username}</tspan>
           </text>
-          <text x="0" y="50" font-size="18" fill="#333">
-            <tspan x="0" dy="1.2em">Gender: ${user.gender || 'Not specified'}</tspan>
+          <text x="0" y="50" font-size="16" fill="#333">
+            <tspan x="0" dy="1.2em">Email: ${user.email || 'Not specified'}</tspan>
           </text>
-          <text x="0" y="100" font-size="18" fill="#333">
-            <tspan x="0" dy="1.2em">Matriculation: ${user.matriculation || 'Not specified'}</tspan>
-          </text>
-          <text x="0" y="150" font-size="18" fill="#333">
-            <tspan x="0" dy="1.2em">Profile: ${user.profile || 'Not specified'}</tspan>
+          <text x="0" y="100" font-size="16" fill="#333">
+            <tspan x="0" dy="1.2em">Matriculation: ${user.clerkId || 'Not specified'}</tspan>
           </text>
         </g>
-        <image x="125" y="350" width="150" height="150" href="${src}"/>
+        <image x="170" y="350" width="150" height="150" href="${src}"/>
       </svg>
     `;
 
-    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+    const svgBlob = new Blob([svgContent], {
+      type: 'image/svg+xml;charset=utf-8',
+    });
     const url = URL.createObjectURL(svgBlob);
 
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = 400;
-      canvas.height = 600;
+      canvas.width = 500;
+      canvas.height = 500;
       const ctx = canvas.getContext('2d');
 
       if (ctx) {
@@ -142,9 +140,7 @@ const TabsComponents = ({ user }: { user: User }) => {
       }
     };
     img.src = url;
-  }, [src, user.username, user.gender, user.matriculation, user.profile]);
-
-
+  }, [src, user.id, user.clerkId, user.email, user.username]);
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
@@ -181,7 +177,9 @@ const TabsComponents = ({ user }: { user: User }) => {
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <p>QR Code for Instant Validation</p>
-               <Button disabled={!src} onClick={generateBadge}>Generate badge</Button>
+              <Button disabled={!src} onClick={generateBadge}>
+                Generate badge
+              </Button>
             </CardTitle>
           </CardHeader>
           <CardContent className="flex justify-center">
