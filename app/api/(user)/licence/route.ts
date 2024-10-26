@@ -73,7 +73,6 @@ export async function GET(req: Request) {
     if (!licence) {
       return new NextResponse('No licence found', { status: 404 });
     }
-
     return new NextResponse(JSON.stringify(licence), { status: 200 });
   } catch (error: any) {
     console.log(error.message);
@@ -82,3 +81,4 @@ export async function GET(req: Request) {
     });
   }
 }
+
