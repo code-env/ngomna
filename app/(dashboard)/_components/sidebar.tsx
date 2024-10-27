@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Logo from '@/components/shared/logo';
-import { ModeToggle } from '@/components/shared/mode-toogle';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Tabs, useTabsStore } from '@/providers/tabs';
-import { icons } from 'lucide-react';
-import Link from 'next/link';
+import Logo from "@/components/shared/logo";
+import { ModeToggle } from "@/components/shared/mode-toogle";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Tabs, useTabsStore } from "@/providers/tabs";
+import { icons } from "lucide-react";
+import Link from "next/link";
 
 export type Tab = {
   tab: Tabs;
@@ -18,29 +18,29 @@ const Sidebar = () => {
 
   const tabs: Tab[] = [
     {
-      tab: 'my-license',
-      title: 'My License',
-      icon: 'House',
+      tab: "my-license",
+      title: "My License",
+      icon: "House",
     },
     {
-      tab: 'application',
-      title: 'Application/Renewal',
-      icon: 'FileText',
+      tab: "application",
+      title: "Application/Renewal",
+      icon: "FileText",
     },
     {
-      tab: 'notifications',
-      title: 'Notifications',
-      icon: 'Bell',
+      tab: "notifications",
+      title: "Notifications",
+      icon: "Bell",
     },
     {
-      tab: 'payments',
-      title: 'Payment History',
-      icon: 'CreditCard',
+      tab: "payments",
+      title: "Payment History",
+      icon: "CreditCard",
     },
     {
-      tab: 'support',
-      title: 'Support',
-      icon: 'CircleHelp',
+      tab: "support",
+      title: "Support",
+      icon: "CircleHelp",
     },
   ];
 
@@ -57,7 +57,7 @@ const Sidebar = () => {
           return (
             <Button
               key={tab.title}
-              variant={activeTab === tab.tab ? 'secondary' : 'ghost'}
+              variant={activeTab === tab.tab ? "secondary" : "ghost"}
               className="w-full justify-start"
               onClick={() => setActiveTab(tab.tab)}
             >

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
-import { useSession } from '@/providers/session-provider';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { useSession } from "@/providers/session-provider";
 
 const Welcome = () => {
   const { user } = useSession();
@@ -14,21 +14,21 @@ const Welcome = () => {
             Welcome back, {user?.username}!
           </h1>
           <p className="text-gray-600">
-            Your license status:{' '}
+            Your license status:{" "}
             <span className="font-semibold text-green-600">Active</span>
           </p>
         </div>
         <Avatar className="h-16 w-16">
           <AvatarImage
             src="/placeholder.svg?height=64&width=64"
-            alt={user?.username || 'nothing'}
+            alt={user?.username || "nothing"}
           />
           <AvatarFallback>
             {user?.username ||
-              ''
-                .split(' ')
+              ""
+                .split(" ")
                 .map(n => n[0])
-                .join('')}
+                .join("")}
           </AvatarFallback>
         </Avatar>
       </CardContent>

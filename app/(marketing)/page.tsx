@@ -1,9 +1,9 @@
-import Testimonials from '@/components/shared/testimonials';
-import Benefits from './_components/benefits';
-import Footer from './_components/footer';
-import Hero from './_components/hero';
-import MarketingHeader from './_components/navbar';
-import Problem from './_components/problem';
+import Testimonials from "@/components/shared/testimonials";
+import Benefits from "./_components/benefits";
+import Footer from "./_components/footer";
+import Hero from "./_components/hero";
+import MarketingHeader from "./_components/navbar";
+import Problem from "./_components/problem";
 
 const LandingPage = () => {
   return (

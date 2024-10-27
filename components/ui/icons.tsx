@@ -1,4 +1,4 @@
-import { Combine, RectangleHorizontal, TableCellsSplit } from 'lucide-react';
+import { Combine, RectangleHorizontal, TableCellsSplit } from "lucide-react";
 
 type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -95,7 +95,7 @@ export const Icons = {
         width="180"
         x="0"
         y="0"
-        style={{ maskType: 'alpha' }}
+        style={{ maskType: "alpha" }}
       >
         <circle cx="90" cy="90" fill="black" r="90"></circle>
       </mask>
@@ -269,10 +269,10 @@ export const Icons = {
 };
 
 export const builtWith: Record<string, React.FC<IconProps>> = {
-  'Framer Motion': Icons.framerMotion,
+  "Framer Motion": Icons.framerMotion,
   react: Icons.react,
   tailwind: Icons.tailwind,
   NextJS: Icons.nextJS,
   storybook: Icons.storybook,
-  'Content Layer': Icons.contentLayer,
+  "Content Layer": Icons.contentLayer,
 };

@@ -1,6 +1,6 @@
-import { ModeToggle } from '@/components/shared/mode-toogle';
-import { siteConfig } from '@/config/site';
-import Link from 'next/link';
+import { ModeToggle } from "@/components/shared/mode-toogle";
+import { siteConfig } from "@/config/site";
+import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

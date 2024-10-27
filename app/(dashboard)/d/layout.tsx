@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import Sidebar from '../_components/sidebar';
-import ModalProvider from '@/providers/modal';
+import React, { ReactNode } from "react";
+import Sidebar from "../_components/sidebar";
+import ModalProvider from "@/providers/modal";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (

@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type Tabs =
-  | 'my-license'
-  | 'application'
-  | 'notifications'
-  | 'payments'
-  | 'support';
+  | "my-license"
+  | "application"
+  | "notifications"
+  | "payments"
+  | "support";
 
 interface TabsState {
   activeTab: Tabs;
@@ -15,15 +15,15 @@ interface TabsState {
 }
 
 const getInitialTab = (): Tabs => {
-  if (typeof window === 'undefined') return 'my-license';
-  const savedTab = localStorage.getItem('activeTab') as Tabs;
-  return savedTab || 'my-license';
+  if (typeof window === "undefined") return "my-license";
+  const savedTab = localStorage.getItem("activeTab") as Tabs;
+  return savedTab || "my-license";
 };
 
 export const useTabsStore = create<TabsState>(set => ({
   activeTab: getInitialTab(),
   setActiveTab: tab => {
-    localStorage.setItem('activeTab', tab);
+    localStorage.setItem("activeTab", tab);
     set({ activeTab: tab });
   },
 }));

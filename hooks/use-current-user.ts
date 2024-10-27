@@ -1,6 +1,6 @@
 // import { auth } from "@clerk/nextjs";
-import { db } from '@/lib/db';
-import { currentUser } from '@clerk/nextjs/server';
+import { db } from "@/lib/db";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function useCurrentUser() {
   try {
@@ -16,7 +16,7 @@ export async function useCurrentUser() {
 
     if (userInDb) return userInDb;
 
-    const username = user.emailAddresses[0].emailAddress.split('@')[0];
+    const username = user.emailAddresses[0].emailAddress.split("@")[0];
 
     const createNewUserInDb = await db.user.create({
       data: {

@@ -1,6 +1,6 @@
-'use client';
-import React, { useRef } from 'react';
-import { useScroll, useTransform, motion, MotionValue } from 'framer-motion';
+"use client";
+import React, { useRef } from "react";
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
 export const ContainerScroll = ({
   children,
@@ -18,9 +18,9 @@ export const ContainerScroll = ({
       setIsMobile(window.innerWidth <= 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener("resize", checkMobile);
     };
   }, []);
 
@@ -40,7 +40,7 @@ export const ContainerScroll = ({
       <div
         className="w-full relative"
         style={{
-          perspective: '1000px',
+          perspective: "1000px",
         }}
       >
         <Card rotate={rotate} translate={translate} scale={scale}>

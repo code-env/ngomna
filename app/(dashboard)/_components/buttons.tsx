@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { useModalsStore } from '@/providers/modals';
+import { Button } from "@/components/ui/button";
+import { useModalsStore } from "@/providers/modals";
 
 const Buttons = () => {
   const { onOpen } = useModalsStore();

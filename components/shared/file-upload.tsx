@@ -1,20 +1,20 @@
-import { UploadDropzone } from '@/lib/uploadthing';
+import { UploadDropzone } from "@/lib/uploadthing";
 
-import '@uploadthing/react/styles.css';
-import { X } from 'lucide-react';
-import Image from 'next/image';
+import "@uploadthing/react/styles.css";
+import { X } from "lucide-react";
+import Image from "next/image";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
   setKey: (val: string) => void;
-  endPoint: 'doc';
+  endPoint: "doc";
 }
 
 const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
-  const fileType = value?.split('.').pop();
+  const fileType = value?.split(".").pop();
 
-  if (value && fileType !== 'pdf') {
+  if (value && fileType !== "pdf") {
     return (
       <div className="relative w-20 h-20">
         <Image
@@ -25,7 +25,7 @@ const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
         />
 
         <button
-          onClick={() => onChange('')}
+          onClick={() => onChange("")}
           className="bg-rose-500 absolute top-0 right-0 cursor-pointer rounded-full p-1 text-white"
         >
           <X className="w-4 h-4" />
@@ -43,7 +43,7 @@ const FileUpload = ({ onChange, value, endPoint }: FileUploadProps) => {
       className="dropzone"
       appearance={{
         button:
-          'ut-uploading:cursor-not-allowed ut-uploading:bg outline-none nothing-btn after:bg-black dark:after:bg-white focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-0',
+          "ut-uploading:cursor-not-allowed ut-uploading:bg outline-none nothing-btn after:bg-black dark:after:bg-white focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-0",
       }}
       onUploadError={(error: Error) => {
         console.log(error);

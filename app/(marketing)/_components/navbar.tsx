@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Logo from '@/components/shared/logo';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Logo from "@/components/shared/logo";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const MarketingHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,31 +18,31 @@ const MarketingHeader = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const routes = [
     {
-      title: 'Features',
-      url: '#',
+      title: "Features",
+      url: "#",
     },
     {
-      title: 'About',
-      url: '#',
+      title: "About",
+      url: "#",
     },
     {
-      title: 'Contact',
-      url: '#',
+      title: "Contact",
+      url: "#",
     },
   ];
 
   return (
     <header
       className={cn(
-        'sticky top-0 bg-background border-b border-transparent backdrop-blur-lg transition-all duration-300 z-10',
+        "sticky top-0 bg-background border-b border-transparent backdrop-blur-lg transition-all duration-300 z-10",
         {
-          'bg-background/80 border-border/40': isScrolled,
+          "bg-background/80 border-border/40": isScrolled,
         }
       )}
     >
@@ -62,13 +62,13 @@ const MarketingHeader = () => {
         <div className="flex items-center gap-4">
           <Link
             href="/sign-up"
-            className={buttonVariants({ variant: 'ghost' })}
+            className={buttonVariants({ variant: "ghost" })}
           >
             Sign up
           </Link>
           <Link
             href="/sign-in"
-            className={buttonVariants({ variant: 'secondary' })}
+            className={buttonVariants({ variant: "secondary" })}
           >
             Sign in
           </Link>

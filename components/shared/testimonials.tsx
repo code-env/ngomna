@@ -1,8 +1,8 @@
-import React from 'react';
-import Container from './container';
-import Marquee from '../ui/marquee';
-import { Star } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import Container from "./container";
+import Marquee from "../ui/marquee";
+import { Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const Testimonials = () => {
   return (
@@ -15,8 +15,8 @@ const Testimonials = () => {
                 <figure
                   key={index}
                   className={cn(
-                    'relative w-96 cursor-pointer overflow-hidden rounded-xl border p-4 flex flex-col gap-2',
-                    'border-border/10 bg-card backdrop-blur-lg'
+                    "relative w-96 cursor-pointer overflow-hidden rounded-xl border p-4 flex flex-col gap-2",
+                    "border-border/10 bg-card backdrop-blur-lg"
                   )}
                 >
                   <div className="flex">
@@ -47,8 +47,8 @@ const Testimonials = () => {
                 <figure
                   key={index}
                   className={cn(
-                    'relative w-96 cursor-pointer overflow-hidden rounded-xl border p-4 flex flex-col gap-2',
-                    'border-border/10 bg-card backdrop-blur-lg'
+                    "relative w-96 cursor-pointer overflow-hidden rounded-xl border p-4 flex flex-col gap-2",
+                    "border-border/10 bg-card backdrop-blur-lg"
                   )}
                 >
                   <div className="flex">

@@ -1,8 +1,8 @@
-'use client';
-import * as Clerk from '@clerk/elements/common';
-import * as SignUp from '@clerk/elements/sign-up';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+"use client";
+import * as Clerk from "@clerk/elements/common";
+import * as SignUp from "@clerk/elements/sign-up";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,11 +10,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Icons } from '@/components/ui/icons';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Icons } from "@/components/ui/icons";
+import { cn } from "@/lib/utils";
 
 export default function SignUpPage() {
   return (
@@ -88,7 +88,7 @@ export default function SignUpPage() {
                               return isLoading ? (
                                 <Icons.spinner className="size-4 animate-spin" />
                               ) : (
-                                'Continue'
+                                "Continue"
                               );
                             }}
                           </Clerk.Loading>
@@ -129,7 +129,7 @@ export default function SignUpPage() {
                               return isLoading ? (
                                 <Icons.spinner className="size-4 animate-spin" />
                               ) : (
-                                'Continue'
+                                "Continue"
                               );
                             }}
                           </Clerk.Loading>
@@ -165,16 +165,16 @@ export default function SignUpPage() {
                                   <div
                                     data-status={status}
                                     className={cn(
-                                      'relative flex size-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md',
+                                      "relative flex size-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
                                       {
-                                        'z-10 ring-2 ring-ring ring-offset-background':
-                                          status === 'cursor' ||
-                                          status === 'selected',
+                                        "z-10 ring-2 ring-ring ring-offset-background":
+                                          status === "cursor" ||
+                                          status === "selected",
                                       }
                                     )}
                                   >
                                     {value}
-                                    {status === 'cursor' && (
+                                    {status === "cursor" && (
                                       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                                         <div className="animate-caret-blink h-4 w-px bg-foreground duration-1000" />
                                       </div>
@@ -215,7 +215,7 @@ export default function SignUpPage() {
                                 return isLoading ? (
                                   <Icons.spinner className="size-4 animate-spin" />
                                 ) : (
-                                  'Continue'
+                                  "Continue"
                                 );
                               }}
                             </Clerk.Loading>

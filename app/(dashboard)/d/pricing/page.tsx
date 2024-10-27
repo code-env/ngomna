@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import Testimonials from '@/components/shared/testimonials';
+import Testimonials from "@/components/shared/testimonials";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,80 +15,80 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Check } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Check } from "lucide-react";
+import { useState } from "react";
 
 export default function VroumPricing() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>(
-    'monthly'
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">(
+    "monthly"
   );
 
   const pricingPlans = [
     {
-      name: 'Basic',
-      description: 'Essential features for individual users',
-      price: { monthly: 'Free', annually: 'Free' },
+      name: "Basic",
+      description: "Essential features for individual users",
+      price: { monthly: "Free", annually: "Free" },
       features: [
-        'Digital license issuance',
-        'Renewal reminders',
-        'Basic support',
-        'Access to partner discounts',
+        "Digital license issuance",
+        "Renewal reminders",
+        "Basic support",
+        "Access to partner discounts",
       ],
     },
     {
-      name: 'Pro',
-      description: 'Advanced features for power users',
-      price: { monthly: '5,000', annually: '50,000' },
+      name: "Pro",
+      description: "Advanced features for power users",
+      price: { monthly: "5,000", annually: "50,000" },
       features: [
-        'All Basic features',
-        'Premium 24/7 support',
-        'Detailed driving analytics',
-        'Exclusive partner discounts',
-        'Priority license processing',
+        "All Basic features",
+        "Premium 24/7 support",
+        "Detailed driving analytics",
+        "Exclusive partner discounts",
+        "Priority license processing",
       ],
     },
     {
-      name: 'Business Partnership',
-      description: 'Tailored for local businesses',
-      price: { monthly: 'Contact Us', annually: 'Contact Us' },
+      name: "Business Partnership",
+      description: "Tailored for local businesses",
+      price: { monthly: "Contact Us", annually: "Contact Us" },
       features: [
-        'All Pro features',
-        'Promotional opportunities in Vroum app',
-        'Customer insights and analytics',
-        'Co-branding options',
-        'Dedicated account manager',
+        "All Pro features",
+        "Promotional opportunities in Vroum app",
+        "Customer insights and analytics",
+        "Co-branding options",
+        "Dedicated account manager",
       ],
     },
   ];
 
   const faqs = [
     {
-      question: 'How does the Basic plan differ from the Pro plan?',
+      question: "How does the Basic plan differ from the Pro plan?",
       answer:
-        'The Basic plan is free and offers essential features for individual users, while the Pro plan includes advanced features like detailed driving analytics and exclusive partner discounts for a monthly or annual fee.',
+        "The Basic plan is free and offers essential features for individual users, while the Pro plan includes advanced features like detailed driving analytics and exclusive partner discounts for a monthly or annual fee.",
     },
     {
-      question: 'What are the benefits of the Business Partnership plan?',
+      question: "What are the benefits of the Business Partnership plan?",
       answer:
-        'The Business Partnership plan offers local businesses promotional opportunities within the Vroum app, customer insights, co-branding options, and a dedicated account manager to help maximize their partnership benefits.',
+        "The Business Partnership plan offers local businesses promotional opportunities within the Vroum app, customer insights, co-branding options, and a dedicated account manager to help maximize their partnership benefits.",
     },
     {
-      question: 'Can I switch between plans?',
+      question: "Can I switch between plans?",
       answer:
-        'Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.',
+        "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.",
     },
     {
-      question: 'How do partner discounts work?',
+      question: "How do partner discounts work?",
       answer:
-        'Partner discounts are special offers from local businesses exclusively for Vroum users. Basic users have access to general discounts, while Pro users enjoy exclusive, premium discounts.',
+        "Partner discounts are special offers from local businesses exclusively for Vroum users. Basic users have access to general discounts, while Pro users enjoy exclusive, premium discounts.",
     },
     {
       question:
-        'What kind of businesses can benefit from partnering with Vroum?',
+        "What kind of businesses can benefit from partnering with Vroum?",
       answer:
-        'A wide range of local businesses can benefit, including mechanics, restaurants, car washes, driving schools, and more. Any business looking to reach drivers in Cameroon can find value in partnering with Vroum.',
+        "A wide range of local businesses can benefit, including mechanics, restaurants, car washes, driving schools, and more. Any business looking to reach drivers in Cameroon can find value in partnering with Vroum.",
     },
   ];
 
@@ -108,13 +108,13 @@ export default function VroumPricing() {
         <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
           <TabsTrigger
             value="monthly"
-            onClick={() => setBillingCycle('monthly')}
+            onClick={() => setBillingCycle("monthly")}
           >
             Monthly
           </TabsTrigger>
           <TabsTrigger
             value="annually"
-            onClick={() => setBillingCycle('annually')}
+            onClick={() => setBillingCycle("annually")}
           >
             Annually
           </TabsTrigger>
@@ -125,7 +125,7 @@ export default function VroumPricing() {
         {pricingPlans.map(plan => (
           <Card
             key={plan.name}
-            className={plan.name === 'Pro' ? 'border-blue-500 border-2' : ''}
+            className={plan.name === "Pro" ? "border-blue-500 border-2" : ""}
           >
             <CardHeader>
               <CardTitle>{plan.name}</CardTitle>
@@ -133,18 +133,18 @@ export default function VroumPricing() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold mb-4">
-                {plan.price[billingCycle] === 'Free' ? (
-                  'Free'
+                {plan.price[billingCycle] === "Free" ? (
+                  "Free"
                 ) : (
                   <>
-                    {plan.price[billingCycle] === 'Contact Us' ? (
-                      'Contact Us'
+                    {plan.price[billingCycle] === "Contact Us" ? (
+                      "Contact Us"
                     ) : (
                       <>
-                        {plan.price[billingCycle as 'monthly' | 'annually']}{' '}
+                        {plan.price[billingCycle as "monthly" | "annually"]}{" "}
                         FCFA
                         <span className="text-sm font-normal">
-                          /{billingCycle === 'monthly' ? 'mo' : 'yr'}
+                          /{billingCycle === "monthly" ? "mo" : "yr"}
                         </span>
                       </>
                     )}
@@ -163,11 +163,11 @@ export default function VroumPricing() {
             <CardFooter>
               <Button
                 className="w-full"
-                variant={plan.name === 'Pro' ? 'default' : 'outline'}
+                variant={plan.name === "Pro" ? "default" : "outline"}
               >
-                {plan.name === 'Business Partnership'
-                  ? 'Partner with Us'
-                  : 'Get Started'}
+                {plan.name === "Business Partnership"
+                  ? "Partner with Us"
+                  : "Get Started"}
               </Button>
             </CardFooter>
           </Card>

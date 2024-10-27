@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
-import { auth } from '@clerk/nextjs/server';
-import { redirect } from 'next/navigation';
-import { db } from '@/lib/db';
+import React, { ReactNode } from "react";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
 
 const MarketingLayout = async ({ children }: { children: ReactNode }) => {
   const { userId } = await auth();
@@ -13,11 +13,11 @@ const MarketingLayout = async ({ children }: { children: ReactNode }) => {
       },
     });
 
-    if (user && user.role === 'ADMIN') {
-      redirect('/admin');
+    if (user && user.role === "ADMIN") {
+      redirect("/admin");
     }
 
-    return redirect('/d');
+    return redirect("/d");
   }
 
   return <div>{children}</div>;

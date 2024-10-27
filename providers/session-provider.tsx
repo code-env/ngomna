@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { User } from '@prisma/client';
-import React, { createContext, useContext, ReactNode } from 'react';
+import { User } from "@prisma/client";
+import React, { createContext, useContext, ReactNode } from "react";
 
 type initialState = {
   user: User | null;
@@ -28,7 +28,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({
 export const useSession = () => {
   const context = useContext(SessionContext);
   if (context === undefined) {
-    throw new Error('useSession must be used within a SessionProvider');
+    throw new Error("useSession must be used within a SessionProvider");
   }
 
   return context;

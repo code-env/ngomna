@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartContainer } from '@/components/ui/chart';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartContainer } from "@/components/ui/chart";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -21,14 +21,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
-import { ResponsiveBar } from '@nivo/bar';
-import { Bell, FileText, Home, Settings, Users } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/table";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { ResponsiveBar } from "@nivo/bar";
+import { Bell, FileText, Home, Settings, Users } from "lucide-react";
+import { useState } from "react";
 
 export default function VroumAdminPanel() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   // Mock data for demonstration purposes
   const dashboardMetrics = {
@@ -39,20 +39,20 @@ export default function VroumAdminPanel() {
   };
 
   const pendingApplications = [
-    { id: 1, name: 'Jean Kouam', date: '2024-03-15', status: 'Pending' },
-    { id: 2, name: 'Marie Nguemo', date: '2024-03-14', status: 'Pending' },
-    { id: 3, name: 'Paul Biya', date: '2024-03-13', status: 'Under Review' },
+    { id: 1, name: "Jean Kouam", date: "2024-03-15", status: "Pending" },
+    { id: 2, name: "Marie Nguemo", date: "2024-03-14", status: "Pending" },
+    { id: 3, name: "Paul Biya", date: "2024-03-13", status: "Under Review" },
     // Add more mock data as needed
   ];
 
   const chartData = [
-    { day: 'Mon', submitted: 45, approved: 38, rejected: 7 },
-    { day: 'Tue', submitted: 52, approved: 41, rejected: 11 },
-    { day: 'Wed', submitted: 49, approved: 44, rejected: 5 },
-    { day: 'Thu', submitted: 63, approved: 55, rejected: 8 },
-    { day: 'Fri', submitted: 58, approved: 50, rejected: 8 },
-    { day: 'Sat', submitted: 37, approved: 32, rejected: 5 },
-    { day: 'Sun', submitted: 30, approved: 28, rejected: 2 },
+    { day: "Mon", submitted: 45, approved: 38, rejected: 7 },
+    { day: "Tue", submitted: 52, approved: 41, rejected: 11 },
+    { day: "Wed", submitted: 49, approved: 44, rejected: 5 },
+    { day: "Thu", submitted: 63, approved: 55, rejected: 8 },
+    { day: "Fri", submitted: 58, approved: 50, rejected: 8 },
+    { day: "Sat", submitted: 37, approved: 32, rejected: 5 },
+    { day: "Sun", submitted: 30, approved: 28, rejected: 2 },
   ];
 
   return (
@@ -64,49 +64,49 @@ export default function VroumAdminPanel() {
         </div>
         <nav className="mt-6">
           <Button
-            variant={activeTab === 'dashboard' ? 'secondary' : 'ghost'}
+            variant={activeTab === "dashboard" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => setActiveTab("dashboard")}
           >
             <Home className="mr-2 h-4 w-4" />
             Dashboard
           </Button>
           <Button
-            variant={activeTab === 'pending' ? 'secondary' : 'ghost'}
+            variant={activeTab === "pending" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('pending')}
+            onClick={() => setActiveTab("pending")}
           >
             <FileText className="mr-2 h-4 w-4" />
             Pending Applications
           </Button>
           <Button
-            variant={activeTab === 'approved' ? 'secondary' : 'ghost'}
+            variant={activeTab === "approved" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('approved')}
+            onClick={() => setActiveTab("approved")}
           >
             <FileText className="mr-2 h-4 w-4" />
             Approved Licenses
           </Button>
           <Button
-            variant={activeTab === 'rejected' ? 'secondary' : 'ghost'}
+            variant={activeTab === "rejected" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('rejected')}
+            onClick={() => setActiveTab("rejected")}
           >
             <FileText className="mr-2 h-4 w-4" />
             Rejected Applications
           </Button>
           <Button
-            variant={activeTab === 'users' ? 'secondary' : 'ghost'}
+            variant={activeTab === "users" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('users')}
+            onClick={() => setActiveTab("users")}
           >
             <Users className="mr-2 h-4 w-4" />
             User Management
           </Button>
           <Button
-            variant={activeTab === 'settings' ? 'secondary' : 'ghost'}
+            variant={activeTab === "settings" ? "secondary" : "ghost"}
             className="w-full justify-start"
-            onClick={() => setActiveTab('settings')}
+            onClick={() => setActiveTab("settings")}
           >
             <Settings className="mr-2 h-4 w-4" />
             Settings
@@ -193,32 +193,32 @@ export default function VroumAdminPanel() {
                 <ChartContainer
                   config={{
                     submitted: {
-                      label: 'Submitted',
-                      color: 'hsl(var(--chart-1))',
+                      label: "Submitted",
+                      color: "hsl(var(--chart-1))",
                     },
                     approved: {
-                      label: 'Approved',
-                      color: 'hsl(var(--chart-2))',
+                      label: "Approved",
+                      color: "hsl(var(--chart-2))",
                     },
                     rejected: {
-                      label: 'Rejected',
-                      color: 'hsl(var(--chart-3))',
+                      label: "Rejected",
+                      color: "hsl(var(--chart-3))",
                     },
                   }}
                   className="h-[300px]"
                 >
                   <ResponsiveBar
                     data={chartData}
-                    keys={['submitted', 'approved', 'rejected']}
+                    keys={["submitted", "approved", "rejected"]}
                     indexBy="day"
                     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
                     padding={0.3}
-                    valueScale={{ type: 'linear' }}
-                    indexScale={{ type: 'band', round: true }}
-                    colors={{ scheme: 'nivo' }}
+                    valueScale={{ type: "linear" }}
+                    indexScale={{ type: "band", round: true }}
+                    colors={{ scheme: "nivo" }}
                     borderColor={{
-                      from: 'color',
-                      modifiers: [['darker', 1.6]],
+                      from: "color",
+                      modifiers: [["darker", 1.6]],
                     }}
                     axisTop={null}
                     axisRight={null}
@@ -226,41 +226,41 @@ export default function VroumAdminPanel() {
                       tickSize: 5,
                       tickPadding: 5,
                       tickRotation: 0,
-                      legend: 'Day',
-                      legendPosition: 'middle',
+                      legend: "Day",
+                      legendPosition: "middle",
                       legendOffset: 32,
                     }}
                     axisLeft={{
                       tickSize: 5,
                       tickPadding: 5,
                       tickRotation: 0,
-                      legend: 'Count',
-                      legendPosition: 'middle',
+                      legend: "Count",
+                      legendPosition: "middle",
                       legendOffset: -40,
                     }}
                     labelSkipWidth={12}
                     labelSkipHeight={12}
                     labelTextColor={{
-                      from: 'color',
-                      modifiers: [['darker', 1.6]],
+                      from: "color",
+                      modifiers: [["darker", 1.6]],
                     }}
                     legends={[
                       {
-                        dataFrom: 'keys',
-                        anchor: 'bottom-right',
-                        direction: 'column',
+                        dataFrom: "keys",
+                        anchor: "bottom-right",
+                        direction: "column",
                         justify: false,
                         translateX: 120,
                         translateY: 0,
                         itemsSpacing: 2,
                         itemWidth: 100,
                         itemHeight: 20,
-                        itemDirection: 'left-to-right',
+                        itemDirection: "left-to-right",
                         itemOpacity: 0.85,
                         symbolSize: 20,
                         effects: [
                           {
-                            on: 'hover',
+                            on: "hover",
                             style: {
                               itemOpacity: 1,
                             },
@@ -272,9 +272,9 @@ export default function VroumAdminPanel() {
                     ariaLabel="Nivo bar chart demo"
                     barAriaLabel={e =>
                       e.id +
-                      ': ' +
+                      ": " +
                       e.formattedValue +
-                      ' in day: ' +
+                      " in day: " +
                       e.indexValue
                     }
                   />
@@ -321,9 +321,9 @@ export default function VroumAdminPanel() {
                         <TableCell>
                           <Badge
                             variant={
-                              application.status === 'Pending'
-                                ? 'secondary'
-                                : 'default'
+                              application.status === "Pending"
+                                ? "secondary"
+                                : "default"
                             }
                           >
                             {application.status}

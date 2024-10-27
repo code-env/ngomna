@@ -1,42 +1,42 @@
-import Container from '@/components/shared/container';
-import { CheckCircle } from 'lucide-react';
-import Image from 'next/image';
-import React from 'react';
+import Container from "@/components/shared/container";
+import { CheckCircle } from "lucide-react";
+import Image from "next/image";
+import React from "react";
 
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 
 const Problem = () => {
   const problems = [
     {
-      title: 'Traditional Paper-Based Licenses',
+      title: "Traditional Paper-Based Licenses",
       description: [
-        'High risk of forgery and fraud',
-        'Time-consuming application and renewal processes',
-        'Difficulty in real-time verification',
-        'Inefficient record-keeping and management',
+        "High risk of forgery and fraud",
+        "Time-consuming application and renewal processes",
+        "Difficulty in real-time verification",
+        "Inefficient record-keeping and management",
       ],
     },
     {
-      title: 'Inefficient Record-Keeping',
+      title: "Inefficient Record-Keeping",
       description: [
-        'Manual record-keeping processes',
-        'Inadequate data security',
-        'Inefficient data management',
-        'Limited data accessibility',
+        "Manual record-keeping processes",
+        "Inadequate data security",
+        "Inefficient data management",
+        "Limited data accessibility",
       ],
     },
     {
-      title: 'Inadequate Verification Processes',
+      title: "Inadequate Verification Processes",
       description: [
-        'Inefficient verification methods',
-        'Limited real-time verification',
-        'High risk of fraud and forgery',
-        'Inadequate data security',
+        "Inefficient verification methods",
+        "Limited real-time verification",
+        "High risk of fraud and forgery",
+        "Inadequate data security",
       ],
     },
   ];

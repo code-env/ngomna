@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import heroImage from '@/public/hero.png';
-import { ContainerScroll } from './container-scroll';
-import Container from '@/components/shared/container';
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import heroImage from "@/public/hero.png";
+import { ContainerScroll } from "./container-scroll";
+import Container from "@/components/shared/container";
 
 const Hero = () => {
   return (
@@ -12,7 +12,7 @@ const Hero = () => {
           <div className="space-y-2">
             <Container>
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Verify with Confidence . Drive with{' '}
+                Verify with Confidence . Drive with{" "}
                 <span className="bg-primary text-primary-foreground rounded-xl px-4">
                   Safety
                 </span>

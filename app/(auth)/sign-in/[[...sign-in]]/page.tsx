@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import * as Clerk from '@clerk/elements/common';
-import * as SignIn from '@clerk/elements/sign-in';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import * as Clerk from "@clerk/elements/common";
+import * as SignIn from "@clerk/elements/sign-in";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -11,12 +11,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Icons } from '@/components/ui/icons';
-import { cn } from '@/lib/utils';
-import { siteConfig } from '@/config/site';
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Icons } from "@/components/ui/icons";
+import { cn } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 export default function SignInPage() {
   return (
@@ -80,7 +80,7 @@ export default function SignInPage() {
                               return isLoading ? (
                                 <Icons.spinner className="size-4 animate-spin" />
                               ) : (
-                                'Continue'
+                                "Continue"
                               );
                             }}
                           </Clerk.Loading>
@@ -135,7 +135,7 @@ export default function SignInPage() {
                               return isLoading ? (
                                 <Icons.spinner className="size-4 animate-spin" />
                               ) : (
-                                'Go back'
+                                "Go back"
                               );
                             }}
                           </Clerk.Loading>
@@ -178,7 +178,7 @@ export default function SignInPage() {
                                 return isLoading ? (
                                   <Icons.spinner className="size-4 animate-spin" />
                                 ) : (
-                                  'Continue'
+                                  "Continue"
                                 );
                               }}
                             </Clerk.Loading>
@@ -259,7 +259,7 @@ export default function SignInPage() {
                                 return isLoading ? (
                                   <Icons.spinner className="size-4 animate-spin" />
                                 ) : (
-                                  'Continue'
+                                  "Continue"
                                 );
                               }}
                             </Clerk.Loading>

@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import Container from '@/components/shared/container';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Clock, Shield, Smartphone } from 'lucide-react';
+import Container from "@/components/shared/container";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Clock, Shield, Smartphone } from "lucide-react";
 
 const Benefits = () => {
   const benefits = [
     {
-      title: 'Online Application & Renewal',
-      description: 'Apply for or renew your license from anywhere, anytime.',
+      title: "Online Application & Renewal",
+      description: "Apply for or renew your license from anywhere, anytime.",
       icon: Smartphone,
     },
     {
-      title: 'Biometric Security',
+      title: "Biometric Security",
       description:
-        'Advanced biometric features ensure your license is secure and unique to you.',
+        "Advanced biometric features ensure your license is secure and unique to you.",
       icon: Shield,
     },
     {
-      title: 'Real-time Verification',
+      title: "Real-time Verification",
       description:
-        'Instant verification for law enforcement and other authorized entities.',
+        "Instant verification for law enforcement and other authorized entities.",
       icon: Clock,
     },
   ];
