@@ -63,11 +63,7 @@ export async function GET(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const licence = await db.carLicence.findMany({
-      where: {
-        userId: userInDb.id,
-      },
-    });
+    const licence = await db.carLicence.findMany();
 
     if (!licence) {
       return new NextResponse("No licence found", { status: 404 });

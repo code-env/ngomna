@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer } from "@/components/ui/chart";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -25,10 +24,66 @@ import {
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { ResponsiveBar } from "@nivo/bar";
 import { Bell, FileText, Home, Settings, Users } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { CarLicence, User } from "@prisma/client";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 export default function VroumAdminPanel() {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [totalSubmitted, setTotalSubmitted] = useState(0);
+  const [pendingApprovals, setPendingApprovals] = useState(0);
+  const [rejectedApplications, setRejectedApplications] = useState(0);
+  const [activeLicenses, setActiveLicenses] = useState(0);
+  const [activeChart, setActiveChart] =
+    useState<keyof typeof chartConfig>("desktop");
+  // replace the following pending applications with the actual data from the database using the useQuery hook
+  const { data } = useQuery({
+    queryKey: ["pendingApplications"],
+    queryFn: fetchPendingApplications,
+  });
+
+  const { data: users } = useQuery({
+    queryKey: ["allUsers"],
+    queryFn: fetchAllUsers,
+  });
+
+  useEffect(() => {
+    const allLicenses = data as CarLicence[];
+    const submitted = allLicenses?.length;
+    const pending = allLicenses?.filter(
+      license => license.status === "PENDING"
+    )?.length;
+    const rejected = allLicenses?.filter(
+      license => license.status === "REJECTED"
+    )?.length;
+    const approved = allLicenses?.filter(
+      license => license.status === "APPROVED"
+    )?.length;
+
+    setTotalSubmitted(submitted);
+    setPendingApprovals(pending);
+    setRejectedApplications(rejected);
+    setActiveLicenses(approved);
+  }, [data]);
+
+  async function fetchPendingApplications() {
+    const response = await fetch("/api/licence");
+    const data = await response.json();
+    return data;
+  }
+
+  async function fetchAllUsers() {
+    const response = await fetch("/api/user");
+    const data = await response.json();
+    return data;
+  }
 
   // Mock data for demonstration purposes
   const dashboardMetrics = {
@@ -38,31 +93,128 @@ export default function VroumAdminPanel() {
     activeLicenses: 1140,
   };
 
-  const pendingApplications = [
-    { id: 1, name: "Jean Kouam", date: "2024-03-15", status: "Pending" },
-    { id: 2, name: "Marie Nguemo", date: "2024-03-14", status: "Pending" },
-    { id: 3, name: "Paul Biya", date: "2024-03-13", status: "Under Review" },
-    // Add more mock data as needed
-  ];
-
   const chartData = [
-    { day: "Mon", submitted: 45, approved: 38, rejected: 7 },
-    { day: "Tue", submitted: 52, approved: 41, rejected: 11 },
-    { day: "Wed", submitted: 49, approved: 44, rejected: 5 },
-    { day: "Thu", submitted: 63, approved: 55, rejected: 8 },
-    { day: "Fri", submitted: 58, approved: 50, rejected: 8 },
-    { day: "Sat", submitted: 37, approved: 32, rejected: 5 },
-    { day: "Sun", submitted: 30, approved: 28, rejected: 2 },
+    { date: "2024-04-01", desktop: 222, mobile: 150 },
+    { date: "2024-04-02", desktop: 97, mobile: 180 },
+    { date: "2024-04-03", desktop: 167, mobile: 120 },
+    { date: "2024-04-04", desktop: 242, mobile: 260 },
+    { date: "2024-04-05", desktop: 373, mobile: 290 },
+    { date: "2024-04-06", desktop: 301, mobile: 340 },
+    { date: "2024-04-07", desktop: 245, mobile: 180 },
+    { date: "2024-04-08", desktop: 409, mobile: 320 },
+    { date: "2024-04-09", desktop: 59, mobile: 110 },
+    { date: "2024-04-10", desktop: 261, mobile: 190 },
+    { date: "2024-04-11", desktop: 327, mobile: 350 },
+    { date: "2024-04-12", desktop: 292, mobile: 210 },
+    { date: "2024-04-13", desktop: 342, mobile: 380 },
+    { date: "2024-04-14", desktop: 137, mobile: 220 },
+    { date: "2024-04-15", desktop: 120, mobile: 170 },
+    { date: "2024-04-16", desktop: 138, mobile: 190 },
+    { date: "2024-04-17", desktop: 446, mobile: 360 },
+    { date: "2024-04-18", desktop: 364, mobile: 410 },
+    { date: "2024-04-19", desktop: 243, mobile: 180 },
+    { date: "2024-04-20", desktop: 89, mobile: 150 },
+    { date: "2024-04-21", desktop: 137, mobile: 200 },
+    { date: "2024-04-22", desktop: 224, mobile: 170 },
+    { date: "2024-04-23", desktop: 138, mobile: 230 },
+    { date: "2024-04-24", desktop: 387, mobile: 290 },
+    { date: "2024-04-25", desktop: 215, mobile: 250 },
+    { date: "2024-04-26", desktop: 75, mobile: 130 },
+    { date: "2024-04-27", desktop: 383, mobile: 420 },
+    { date: "2024-04-28", desktop: 122, mobile: 180 },
+    { date: "2024-04-29", desktop: 315, mobile: 240 },
+    { date: "2024-04-30", desktop: 454, mobile: 380 },
+    { date: "2024-05-01", desktop: 165, mobile: 220 },
+    { date: "2024-05-02", desktop: 293, mobile: 310 },
+    { date: "2024-05-03", desktop: 247, mobile: 190 },
+    { date: "2024-05-04", desktop: 385, mobile: 420 },
+    { date: "2024-05-05", desktop: 481, mobile: 390 },
+    { date: "2024-05-06", desktop: 498, mobile: 520 },
+    { date: "2024-05-07", desktop: 388, mobile: 300 },
+    { date: "2024-05-08", desktop: 149, mobile: 210 },
+    { date: "2024-05-09", desktop: 227, mobile: 180 },
+    { date: "2024-05-10", desktop: 293, mobile: 330 },
+    { date: "2024-05-11", desktop: 335, mobile: 270 },
+    { date: "2024-05-12", desktop: 197, mobile: 240 },
+    { date: "2024-05-13", desktop: 197, mobile: 160 },
+    { date: "2024-05-14", desktop: 448, mobile: 490 },
+    { date: "2024-05-15", desktop: 473, mobile: 380 },
+    { date: "2024-05-16", desktop: 338, mobile: 400 },
+    { date: "2024-05-17", desktop: 499, mobile: 420 },
+    { date: "2024-05-18", desktop: 315, mobile: 350 },
+    { date: "2024-05-19", desktop: 235, mobile: 180 },
+    { date: "2024-05-20", desktop: 177, mobile: 230 },
+    { date: "2024-05-21", desktop: 82, mobile: 140 },
+    { date: "2024-05-22", desktop: 81, mobile: 120 },
+    { date: "2024-05-23", desktop: 252, mobile: 290 },
+    { date: "2024-05-24", desktop: 294, mobile: 220 },
+    { date: "2024-05-25", desktop: 201, mobile: 250 },
+    { date: "2024-05-26", desktop: 213, mobile: 170 },
+    { date: "2024-05-27", desktop: 420, mobile: 460 },
+    { date: "2024-05-28", desktop: 233, mobile: 190 },
+    { date: "2024-05-29", desktop: 78, mobile: 130 },
+    { date: "2024-05-30", desktop: 340, mobile: 280 },
+    { date: "2024-05-31", desktop: 178, mobile: 230 },
+    { date: "2024-06-01", desktop: 178, mobile: 200 },
+    { date: "2024-06-02", desktop: 470, mobile: 410 },
+    { date: "2024-06-03", desktop: 103, mobile: 160 },
+    { date: "2024-06-04", desktop: 439, mobile: 380 },
+    { date: "2024-06-05", desktop: 88, mobile: 140 },
+    { date: "2024-06-06", desktop: 294, mobile: 250 },
+    { date: "2024-06-07", desktop: 323, mobile: 370 },
+    { date: "2024-06-08", desktop: 385, mobile: 320 },
+    { date: "2024-06-09", desktop: 438, mobile: 480 },
+    { date: "2024-06-10", desktop: 155, mobile: 200 },
+    { date: "2024-06-11", desktop: 92, mobile: 150 },
+    { date: "2024-06-12", desktop: 492, mobile: 420 },
+    { date: "2024-06-13", desktop: 81, mobile: 130 },
+    { date: "2024-06-14", desktop: 426, mobile: 380 },
+    { date: "2024-06-15", desktop: 307, mobile: 350 },
+    { date: "2024-06-16", desktop: 371, mobile: 310 },
+    { date: "2024-06-17", desktop: 475, mobile: 520 },
+    { date: "2024-06-18", desktop: 107, mobile: 170 },
+    { date: "2024-06-19", desktop: 341, mobile: 290 },
+    { date: "2024-06-20", desktop: 408, mobile: 450 },
+    { date: "2024-06-21", desktop: 169, mobile: 210 },
+    { date: "2024-06-22", desktop: 317, mobile: 270 },
+    { date: "2024-06-23", desktop: 480, mobile: 530 },
+    { date: "2024-06-24", desktop: 132, mobile: 180 },
+    { date: "2024-06-25", desktop: 141, mobile: 190 },
+    { date: "2024-06-26", desktop: 434, mobile: 380 },
+    { date: "2024-06-27", desktop: 448, mobile: 490 },
+    { date: "2024-06-28", desktop: 149, mobile: 200 },
+    { date: "2024-06-29", desktop: 103, mobile: 160 },
+    { date: "2024-06-30", desktop: 446, mobile: 400 },
   ];
+  const chartConfig = {
+    views: {
+      label: "Page Views",
+    },
+    desktop: {
+      label: "Desktop",
+      color: "hsl(var(--chart-1))",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
+
+  const total = useMemo(
+    () => ({
+      desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
+      mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
+    }),
+    []
+  );
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar Navigation */}
-      <aside className="w-64 bg-white shadow-md">
+    <div className="flex h-screen bg-muted">
+      <aside className="w-64 bg-background shadow-md">
         <div className="p-4">
-          <h2 className="text-2xl font-bold text-blue-600">Vroum Admin</h2>
+          <h2 className="text-2xl font-bold">Vroum Admin</h2>
         </div>
-        <nav className="mt-6">
+        <nav className="mt-6 px-4">
           <Button
             variant={activeTab === "dashboard" ? "secondary" : "ghost"}
             className="w-full justify-start"
@@ -140,9 +292,7 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    {dashboardMetrics.totalSubmitted}
-                  </div>
+                  <div className="text-2xl font-bold">{totalSubmitted}</div>
                 </CardContent>
               </Card>
               <Card>
@@ -153,9 +303,7 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    {dashboardMetrics.pendingApprovals}
-                  </div>
+                  <div className="text-2xl font-bold">{pendingApprovals}</div>
                 </CardContent>
               </Card>
               <Card>
@@ -167,7 +315,7 @@ export default function VroumAdminPanel() {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">
-                    {dashboardMetrics.rejectedApplications}
+                    {rejectedApplications}
                   </div>
                 </CardContent>
               </Card>
@@ -179,9 +327,7 @@ export default function VroumAdminPanel() {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    {dashboardMetrics.activeLicenses}
-                  </div>
+                  <div className="text-2xl font-bold">{activeLicenses}</div>
                 </CardContent>
               </Card>
             </div>
@@ -190,95 +336,79 @@ export default function VroumAdminPanel() {
                 <CardTitle>Weekly Application Trends</CardTitle>
               </CardHeader>
               <CardContent className="pt-2">
-                <ChartContainer
-                  config={{
-                    submitted: {
-                      label: "Submitted",
-                      color: "hsl(var(--chart-1))",
-                    },
-                    approved: {
-                      label: "Approved",
-                      color: "hsl(var(--chart-2))",
-                    },
-                    rejected: {
-                      label: "Rejected",
-                      color: "hsl(var(--chart-3))",
-                    },
-                  }}
-                  className="h-[300px]"
-                >
-                  <ResponsiveBar
-                    data={chartData}
-                    keys={["submitted", "approved", "rejected"]}
-                    indexBy="day"
-                    margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-                    padding={0.3}
-                    valueScale={{ type: "linear" }}
-                    indexScale={{ type: "band", round: true }}
-                    colors={{ scheme: "nivo" }}
-                    borderColor={{
-                      from: "color",
-                      modifiers: [["darker", 1.6]],
-                    }}
-                    axisTop={null}
-                    axisRight={null}
-                    axisBottom={{
-                      tickSize: 5,
-                      tickPadding: 5,
-                      tickRotation: 0,
-                      legend: "Day",
-                      legendPosition: "middle",
-                      legendOffset: 32,
-                    }}
-                    axisLeft={{
-                      tickSize: 5,
-                      tickPadding: 5,
-                      tickRotation: 0,
-                      legend: "Count",
-                      legendPosition: "middle",
-                      legendOffset: -40,
-                    }}
-                    labelSkipWidth={12}
-                    labelSkipHeight={12}
-                    labelTextColor={{
-                      from: "color",
-                      modifiers: [["darker", 1.6]],
-                    }}
-                    legends={[
-                      {
-                        dataFrom: "keys",
-                        anchor: "bottom-right",
-                        direction: "column",
-                        justify: false,
-                        translateX: 120,
-                        translateY: 0,
-                        itemsSpacing: 2,
-                        itemWidth: 100,
-                        itemHeight: 20,
-                        itemDirection: "left-to-right",
-                        itemOpacity: 0.85,
-                        symbolSize: 20,
-                        effects: [
-                          {
-                            on: "hover",
-                            style: {
-                              itemOpacity: 1,
-                            },
-                          },
-                        ],
-                      },
-                    ]}
-                    role="application"
-                    ariaLabel="Nivo bar chart demo"
-                    barAriaLabel={e =>
-                      e.id +
-                      ": " +
-                      e.formattedValue +
-                      " in day: " +
-                      e.indexValue
-                    }
-                  />
-                </ChartContainer>
+                <div className="flex">
+                  {["desktop", "mobile"].map(key => {
+                    const chart = key as keyof typeof chartConfig;
+                    return (
+                      <button
+                        key={chart}
+                        data-active={activeChart === chart}
+                        className="relative z-30 flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+                        onClick={() => setActiveChart(chart)}
+                      >
+                        <span className="text-xs text-muted-foreground">
+                          {chartConfig[chart].label}
+                        </span>
+                        <span className="text-lg font-bold leading-none sm:text-3xl">
+                          {total[key as keyof typeof total].toLocaleString()}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <CardContent className="px-2 sm:p-6">
+                  <ChartContainer
+                    config={chartConfig}
+                    className="aspect-auto h-[250px] w-full"
+                  >
+                    <BarChart
+                      accessibilityLayer
+                      data={chartData}
+                      margin={{
+                        left: 12,
+                        right: 12,
+                      }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="date"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        minTickGap={32}
+                        tickFormatter={value => {
+                          const date = new Date(value);
+                          return date.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          });
+                        }}
+                      />
+                      <ChartTooltip
+                        content={
+                          <ChartTooltipContent
+                            className="w-[150px]"
+                            nameKey="views"
+                            labelFormatter={value => {
+                              return new Date(value).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              );
+                            }}
+                          />
+                        }
+                      />
+                      <Bar
+                        dataKey={activeChart}
+                        fill={`var(--color-${activeChart})`}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
               </CardContent>
             </Card>
           </TabsContent>
@@ -314,29 +444,35 @@ export default function VroumAdminPanel() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {pendingApplications.map(application => (
-                      <TableRow key={application.id}>
-                        <TableCell>{application.name}</TableCell>
-                        <TableCell>{application.date}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant={
-                              application.status === "Pending"
-                                ? "secondary"
-                                : "default"
-                            }
-                          >
-                            {application.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <Button variant="outline" size="sm" className="mr-2">
-                            View
-                          </Button>
-                          <Button size="sm">Review</Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {data &&
+                      data.length > 0 &&
+                      data.map((application: CarLicence) => (
+                        <TableRow key={application.id}>
+                          <TableCell>{application.status}</TableCell>
+                          <TableCell>Nothing</TableCell>
+                          <TableCell>
+                            <Badge
+                              variant={
+                                application.status === "PENDING"
+                                  ? "secondary"
+                                  : "default"
+                              }
+                            >
+                              {application.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mr-2"
+                            >
+                              View
+                            </Button>
+                            <Button size="sm">Review</Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -382,29 +518,38 @@ export default function VroumAdminPanel() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow>
-                      <TableCell className="font-medium">
-                        <div className="flex items-center">
-                          <Avatar className="h-8 w-8 mr-2">
-                            <AvatarImage src="/placeholder.svg" alt="Avatar" />
-                            <AvatarFallback>JD</AvatarFallback>
-                          </Avatar>
-                          John Doe
-                        </div>
-                      </TableCell>
-                      <TableCell>Admin</TableCell>
-                      <TableCell>2 hours ago</TableCell>
-
-                      <TableCell>
-                        <Button variant="outline" size="sm" className="mr-2">
-                          Edit
-                        </Button>
-                        <Button variant="destructive" size="sm">
-                          Deactivate
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                    {/* Add more user rows as needed */}
+                    {users &&
+                      users.length > 0 &&
+                      users.map((user: User) => (
+                        <TableRow key={user.id}>
+                          <TableCell>
+                            <div className="flex items-center">
+                              <Avatar className="h-8 w-8 mr-2">
+                                <AvatarImage
+                                  src="/placeholder.svg"
+                                  alt="Avatar"
+                                />
+                                <AvatarFallback>JD</AvatarFallback>
+                              </Avatar>
+                              {user.username}
+                            </div>
+                          </TableCell>
+                          <TableCell>{user.role}</TableCell>
+                          <TableCell>Nothing</TableCell>
+                          <TableCell>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mr-2"
+                            >
+                              Edit
+                            </Button>
+                            <Button variant="destructive" size="sm">
+                              Deactivate
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </CardContent>
