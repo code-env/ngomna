@@ -9,6 +9,10 @@ export async function POST(req: Request) {
 
     const { cardId, status } = await req.json();
 
+    const body = await req.json();
+
+    console.log(body);
+
     if (!user) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
@@ -35,7 +39,7 @@ export async function POST(req: Request) {
       return new NextResponse('Licence created', { status: 201 });
     }
 
-    return new NextResponse('Elctronci licence created successfully', {
+    return new NextResponse('Elctronic licence created successfully', {
       status: 201,
     });
   } catch (error: any) {
@@ -81,4 +85,3 @@ export async function GET(req: Request) {
     });
   }
 }
-

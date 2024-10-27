@@ -1,5 +1,7 @@
 'use client';
 
+import * as z from 'zod';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,45 +13,76 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+  FormLabel,
+} from '@/components/ui/form';
+import axios from 'axios';
 import { useModalsStore } from '@/providers/modals';
+import { useForm } from 'react-hook-form';
+import { licenceSchema, LicenseType } from '@/validations';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 
 const UploadDocument = () => {
   const { isOpen, onClose } = useModalsStore();
+  const router = useRouter();
+
+  const form = useForm<LicenseType>({
+    resolver: zodResolver(licenceSchema),
+  });
+
+  async function handleSubmit(values: LicenseType) {
+    try {
+      console.log(values);
+      const { data } = await axios.post('/api/user/licence', values);
+
+      if (data) {
+        router.refresh();
+      }
+    } catch (error: any) {
+      console.log('Nothing is coming on localhost');
+    }
+  }
+
+  const { isSubmitting } = form.formState;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
+          <DialogTitle>Upload a Licence</DialogTitle>
           <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
+            Select a file from your computer to upload
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input
-              id="name"
-              defaultValue="Pedro Duarte"
-              className="col-span-3"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Content title"
+                      {...field}
+                      disabled={isSubmitting}
+                      className="disabled:opacity-50 disabled:cursor-not-allowed"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input
-              id="username"
-              defaultValue="@peduarte"
-              className="col-span-3"
-            />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
+
+            <Button type="submit">Save changes</Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
