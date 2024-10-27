@@ -34,6 +34,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { useRouter } from "next/navigation";
 
 export default function VroumAdminPanel() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -43,6 +44,7 @@ export default function VroumAdminPanel() {
   const [activeLicenses, setActiveLicenses] = useState(0);
   const [activeChart, setActiveChart] =
     useState<keyof typeof chartConfig>("desktop");
+  const router = useRouter();
   // replace the following pending applications with the actual data from the database using the useQuery hook
   const { data } = useQuery({
     queryKey: ["pendingApplications"],
@@ -207,6 +209,29 @@ export default function VroumAdminPanel() {
     }),
     []
   );
+
+  async function changeStatus(id: string) {
+    try {
+      const response = await fetch(`/api/licence/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: "APPROVED",
+        }),
+      });
+      const data = await response.json();
+
+      if (response.ok) {
+        router.refresh();
+      } else {
+        console.error(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="flex h-screen bg-muted">
@@ -446,33 +471,47 @@ export default function VroumAdminPanel() {
                   <TableBody>
                     {data &&
                       data.length > 0 &&
-                      data.map((application: CarLicence) => (
-                        <TableRow key={application.id}>
-                          <TableCell>{application.status}</TableCell>
-                          <TableCell>Nothing</TableCell>
-                          <TableCell>
-                            <Badge
-                              variant={
-                                application.status === "PENDING"
-                                  ? "secondary"
-                                  : "default"
-                              }
-                            >
-                              {application.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="mr-2"
-                            >
-                              View
-                            </Button>
-                            <Button size="sm">Review</Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                      data
+                        .filter(
+                          (application: CarLicence) =>
+                            application.status !== "APPROVED"
+                        )
+                        .map((application: CarLicence) => (
+                          <TableRow key={application.id}>
+                            <TableCell>{application.carId}</TableCell>
+                            <TableCell>
+                              {new Date(
+                                application.createdAt
+                              ).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <Badge
+                                variant={
+                                  application.status === "PENDING"
+                                    ? "secondary"
+                                    : "default"
+                                }
+                              >
+                                {application.status}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="mr-2"
+                              >
+                                Review
+                              </Button>
+                              <Button
+                                size="sm"
+                                onClick={() => changeStatus(application.id)}
+                              >
+                                Approve
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
                   </TableBody>
                 </Table>
               </CardContent>

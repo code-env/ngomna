@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+import { STATUS } from "@prisma/client";
 
 export async function GET(req: Request) {
   try {
@@ -40,7 +41,7 @@ export async function PUT(
   try {
     const user = await auth();
 
-    const { status } = await req.json();
+    const { status }: { status: STATUS } = await req.json();
 
     if (!user) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -56,17 +57,27 @@ export async function PUT(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const licence = await db.carLicence.update({
+    const licence = await db.carLicence.findFirst({
+      where: {
+        id: params.licenceId,
+      },
+    });
+
+    if (!licence) {
+      return new NextResponse("Licence not found", { status: 404 });
+    }
+
+    const updatedLicence = await db.carLicence.update({
       where: {
         id: params.licenceId,
       },
       data: {
-        status: status,
+        status,
       },
     });
 
-    if (licence) {
-      return new NextResponse("Licence updated", { status: 200 });
+    if (!updatedLicence) {
+      return new NextResponse("Licence not updated", { status: 400 });
     }
 
     return new NextResponse("Licence updated successfully", { status: 200 });
