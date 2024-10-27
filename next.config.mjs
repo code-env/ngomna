@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-import './env.mjs';
+import "./env.mjs";
 
 const nextConfig = {};
 
